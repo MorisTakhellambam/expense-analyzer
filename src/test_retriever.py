@@ -11,8 +11,8 @@ for r in query("transport and travel"):
     print(" •", r)
 
 # Filter by month only
-print("\n=== 21-01-2026 related ===")
-for r in query("all expenses", date="21/01/2026"):
+print("\n=== May related ===")
+for r in query("all expenses", month="May"):
     print(" •", r)
 
 # Filter by category only

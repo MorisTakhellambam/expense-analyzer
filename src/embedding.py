@@ -38,10 +38,12 @@ def create_embeddings() -> None:
         embeddings = embeddings,
         metadatas  = [
             {
-                "date"        : row["date"],
-                "category"    : row["category"],
-                "amount"      : row["amount"],
-                "description" : row["description"],
+                "date"          : row["date"],
+                "day"           : row["day"],
+                "month"         : row["month"],
+                "category"      : row["category"],
+                "amount"        : row["amount"],
+                "description"   : row["description"],
             }
             for _, row in df.iterrows()
         ]

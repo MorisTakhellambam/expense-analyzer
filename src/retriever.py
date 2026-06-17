@@ -28,7 +28,7 @@ base_retriever = vector_store.as_retriever(
     search_kwargs={"k": 5}      # retrieve top 5 most similar expenses
 )
 
-def get_retriever(category: str = None, date: str = None, k: int = 5):
+def get_retriever(category: str = None, date: str = None, day: str = None, month: str = None, k: int = 5):
     """
     Returns a retriever with optional metadata filters.
 
@@ -39,7 +39,7 @@ def get_retriever(category: str = None, date: str = None, k: int = 5):
         get_retriever(date="01-01-2026")  # retrieves top 5 most similar expenses on "01-01-2026"
     """
 
-    where = _build_where(category, date)
+    where = _build_where(category, date, day, month)
 
     return vector_store.as_retriever(
         search_type="similarity",
@@ -49,7 +49,7 @@ def get_retriever(category: str = None, date: str = None, k: int = 5):
         },
     )
 
-def _build_where(category: str = None, date: str = None):
+def _build_where(category: str = None, date: str = None, day: str = None, month: str = None):
     """
     Builds a ChromaDB $and/$or filter dict from optional fields.
     """
@@ -62,6 +62,12 @@ def _build_where(category: str = None, date: str = None):
     if date:
         conditions.append({"date": {"$eq": date}})  # ensure date matches stored metadata
 
+    if day:
+        conditions.append({"day": {"$eq": day}})
+    
+    if month:
+        conditions.append({"month": {"$eq": month}})
+
     if len(conditions) == 0:
         return None  # no filters, retrieve all
     
@@ -70,7 +76,7 @@ def _build_where(category: str = None, date: str = None):
     
     return {"$and": conditions}  # multiple filters, combine with $and
 
-def query(question: str, category: str = None, date: str = None, k: int = 5):
+def query(question: str, category: str = None, date: str = None, day: str = None, month: str = None, k: int = 5):
     """
     Run a semantic search and return matching expense strings.
     
@@ -80,6 +86,6 @@ def query(question: str, category: str = None, date: str = None, k: int = 5):
         query("big purchases", category="Shopping", k=5)
     """
 
-    retriever = get_retriever(category=category, date=date, k=k)
+    retriever = get_retriever(category=category, date=date, day=day, month=month, k=k)
     docs = retriever.invoke(question)
     return [doc.page_content for doc in docs]

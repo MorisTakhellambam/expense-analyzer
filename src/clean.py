@@ -22,10 +22,11 @@ def clean_data() -> pd.DataFrame:
     # Remove negative sign and commas from amount column
     df['amount'] = df['amount'].astype(str).str.replace('-', '', regex=False)
     df['amount'] = df['amount'].astype(str).str.replace(',', '', regex=False).astype(float)
-
-    # # Datetime conversion
-    # df['date'] = pd.to_datetime(df['date'], errors='coerce')      # to be able to use strftime 
     
+    # Add month and day of the week
+    df['month'] = pd.to_datetime(df['date'], format="%d/%m/%Y").dt.month_name()
+    df['day'] = pd.to_datetime(df['date'], format="%d/%m/%Y").dt.day_name()
+
     return df
 
 def save_cleaned_data(df: pd.DataFrame, output_path: str) -> None:

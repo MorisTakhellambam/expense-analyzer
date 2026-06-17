@@ -16,15 +16,8 @@ def row_to_text(row: pd.Series) -> str:
     Returns:
         str: The text representation of the row.
     """
-    
-    date = row['date']              # 'date' is already a string in the format 'DD-MM-YYYY' after cleaning
 
-    row['date'] = pd.to_datetime(row['date'], errors='coerce')      # to be able to use strftime to get the day of the week
-    day = row['date'].strftime('%A')
-
-    return(
-        f"On {day}, {date}, you spent {row['amount']:.2f} {row['currency']} on {row['category']}. The description of the transaction is: '{row['description']}'."
-    )
+    return f"On {row['day']}, {row['date']}, you spent {row['amount']:.2f} {row['currency']} on {row['category']}. The description of the transaction is: '{row['description']}'."
 
 def add_text_column(df: pd.DataFrame) -> pd.DataFrame:
     """

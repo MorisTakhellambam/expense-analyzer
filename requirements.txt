@@ -11,5 +11,7 @@ sentence-transformers
 chromadb
 
 # langchain
+langgraph
 langchain_chroma
 langchain_huggingface
+langchain_groq
