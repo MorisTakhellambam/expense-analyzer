@@ -1,4 +1,11 @@
+# python essentials
 numpy
 pandas
 python-dotenv
+
+# machine learning
 scikit-learn
+
+# embedding and vectorDB
+sentence-transformers
+chromadb
