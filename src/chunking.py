@@ -40,7 +40,10 @@ def add_text_column(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-if __name__ == "__main__":
+def perform_chunking() -> None:
+    """
+    Loads the cleaned data, adds a 'text' column, and saves the updated DataFrame to a new CSV file.
+    """
     # Load the cleaned data
     df = pd.read_csv(CLEANED_DATA_PATH)
     
@@ -50,3 +53,6 @@ if __name__ == "__main__":
     # Save the updated DataFrame back to CSV
     df_with_text.to_csv(CLEANED_DATA_PATH_WITH_TEXT, index=False)
     print(f"Updated data with text column saved to {CLEANED_DATA_PATH_WITH_TEXT}")
+
+if __name__ == "__main__":
+    perform_chunking()
