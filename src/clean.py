@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from config import RAW_DATA_PATH, CLEANED_DATA_PATH
 
-def cleanData():
+def cleanData() -> pd.DataFrame:
     """
     Imports required columns and cleans the raw data by removing negative signs and commas from the 'amount' column.
     
@@ -25,7 +25,7 @@ def cleanData():
     
     return df
 
-def saveCleanedData(df, output_path):
+def saveCleanedData(df: pd.DataFrame, output_path: str) -> None:
     """
     Saves the cleaned DataFrame to a specified CSV file.
     
