@@ -22,6 +22,9 @@ def clean_data() -> pd.DataFrame:
     # Remove negative sign and commas from amount column
     df['amount'] = df['amount'].astype(str).str.replace('-', '', regex=False)
     df['amount'] = df['amount'].astype(str).str.replace(',', '', regex=False).astype(float)
+
+    # # Datetime conversion
+    # df['date'] = pd.to_datetime(df['date'], errors='coerce')      # to be able to use strftime 
     
     return df
 
