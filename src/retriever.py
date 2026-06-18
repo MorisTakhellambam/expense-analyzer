@@ -104,6 +104,12 @@ def query(
         query("big purchases", category="Shopping", k=5)
     """
 
-    retriever = get_retriever(category=category, date=date, day=day, month=month, k=k)
+    retriever = get_retriever(
+                    category=category,
+                    date=date,
+                    day=day,
+                    month=month,
+                    k=k
+                )
     docs = retriever.invoke(question)
     return [doc.page_content for doc in docs]
