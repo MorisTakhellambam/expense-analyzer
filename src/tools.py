@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 from pathlib import Path
+from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -22,10 +23,10 @@ df['category']  = df['category'].str.strip().str.title()
 @tool
 def expense_search(
     query: str,
-    category: str = None,
-    date: str = None,
-    day: str = None,
-    month: str = None,
+    category: Optional[str] = None,
+    date: Optional[str] = None,
+    day: Optional[str] = None,
+    month: Optional[str] = None
 ) -> str:
     """
     Semantically searches expense history and returns matching records.
@@ -60,11 +61,11 @@ def expense_search(
 @tool
 def expense_calculator(
     operation: str,
-    category: str = None,
-    date: str = None,
-    day: str = None,
-    month: str = None,
-)-> str:
+    category: Optional[str] = None,
+    date: Optional[str] = None,
+    day: Optional[str] = None,
+    month: Optional[str] = None
+) -> str:
     """
     Computes totals, averages, counts, max or min over expenses.
     Use for questions like:
@@ -105,7 +106,7 @@ def expense_calculator(
     elif op == "count":
         return f"Transactions {scope}: {len(filtered)}."
     elif op == "max":
-        row = filtered.loc[filtered['amount'].idmax()]
+        row = filtered.loc[filtered['amount'].idxmax()]
         return f"Highest {scope}: {row['amount']:,.2f} - {row['description']} ({row['date']})."
     elif op == "min":
         row = filtered.loc[filtered["amount"].idxmin()]
@@ -121,9 +122,9 @@ def expense_comparator(
     compare_by: str,
     value_a: str,
     value_b: str,
-    category: str = None,
-    month: str = None,
-)-> str:
+    category: Optional[str] = None,
+    month: Optional[str] = None
+) -> str:
     """
     Compares spending between two groups.
     Use for questions like:
