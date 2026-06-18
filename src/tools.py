@@ -9,10 +9,14 @@ from langchain_core.tools import tool
 from config import CLEANED_DATA_PATH_WITH_TEXT
 from retriever import get_retriever
 
+
+
 # load dataframe
 df = pd.read_csv(CLEANED_DATA_PATH_WITH_TEXT, parse_dates=['date'])
 df['amount']    = df['amount'].astype(float)
 df['category']  = df['category'].str.strip().str.title()
+
+
 
 # tool 1 - semantic search
 @tool
@@ -49,6 +53,8 @@ def expense_search(
     
     results = "\n".join(f"- {doc.page_content}" for doc in docs)
     return f"Found {len(docs)} matching expenses: \n{results}"
+
+
 
 # tool 2 - calculator
 @tool
@@ -106,6 +112,8 @@ def expense_calculator(
         return f"Lowest {scope}: ₹{row['amount']:,.2f} — {row['description']} ({row['date']})."
     else:
         return f"Unknown operation '{op}'. Use: total, average, count, max, min."
+
+
 
 # tool 3 - comparator
 @tool
