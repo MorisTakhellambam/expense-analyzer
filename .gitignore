@@ -21,5 +21,7 @@ AGENTS.md
 # configs
 config.py
 
-# test files 
+# test files and notebooks
 test.ipynb
+test.py
+notebooks/

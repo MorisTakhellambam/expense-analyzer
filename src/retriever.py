@@ -28,7 +28,13 @@ base_retriever = vector_store.as_retriever(
     search_kwargs={"k": 5}      # retrieve top 5 most similar expenses
 )
 
-def get_retriever(category: str = None, date: str = None, day: str = None, month: str = None, k: int = 5):
+def get_retriever(
+        category: str = None,
+        date: str = None,
+        day: str = None,
+        month: str = None,
+        k: int = 5
+    ):
     """
     Returns a retriever with optional metadata filters.
 
@@ -49,7 +55,12 @@ def get_retriever(category: str = None, date: str = None, day: str = None, month
         },
     )
 
-def _build_where(category: str = None, date: str = None, day: str = None, month: str = None):
+def _build_where(
+        category: str = None,
+        date: str = None,
+        day: str = None,
+        month: str = None
+    ):
     """
     Builds a ChromaDB $and/$or filter dict from optional fields.
     """
@@ -76,7 +87,14 @@ def _build_where(category: str = None, date: str = None, day: str = None, month:
     
     return {"$and": conditions}  # multiple filters, combine with $and
 
-def query(question: str, category: str = None, date: str = None, day: str = None, month: str = None, k: int = 5):
+def query(
+        question: str,
+        category: str = None,
+        date: str = None,
+        day: str = None,
+        month: str = None,
+        k: int = 5
+    ):
     """
     Run a semantic search and return matching expense strings.
     
@@ -86,6 +104,12 @@ def query(question: str, category: str = None, date: str = None, day: str = None
         query("big purchases", category="Shopping", k=5)
     """
 
-    retriever = get_retriever(category=category, date=date, day=day, month=month, k=k)
+    retriever = get_retriever(
+                    category=category,
+                    date=date,
+                    day=day,
+                    month=month,
+                    k=k
+                )
     docs = retriever.invoke(question)
     return [doc.page_content for doc in docs]
