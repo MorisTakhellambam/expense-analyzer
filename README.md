@@ -1,5 +1,3 @@
-![alt text](plan.png)
-
 # Expense Analyzer
 
 An AI-powered expense analysis chatbot that lets you interact with your personal financial data using natural language.
