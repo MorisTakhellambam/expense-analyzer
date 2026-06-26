@@ -255,6 +255,10 @@ Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
+or (if you're using uv)
+```bash
+uv add -r requirements.txt
+```
 
 ---
 
